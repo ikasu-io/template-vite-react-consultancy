@@ -61,7 +61,7 @@ function CaseCard({ item }: { item: Case }) {
             <p key={paragraph.slice(0, 24)}>{paragraph}</p>
           ))}
         </div>
-        <div className="rounded-xl border bg-card p-4 sm:p-6">
+        <div className="min-w-0 rounded-xl border bg-card p-4 sm:p-6">
           <p className="mb-4">
             <span className="font-serif text-4xl text-primary">{item.result.value}</span>{' '}
             <span className="text-muted-foreground">{item.result.label}</span>

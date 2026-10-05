@@ -5,6 +5,7 @@ import { area, curveMonotoneX, line } from 'd3-shape'
 
 import type { Case } from '@/data/cases'
 import { useInView } from '@/hooks/use-in-view'
+import { useWidth } from '@/hooks/use-width'
 import { cn } from '@/lib/utils'
 
 const monthFormat = new Intl.DateTimeFormat('en-GB', { month: 'short', year: 'numeric' })
@@ -33,13 +34,16 @@ interface Props {
  */
 export function MetricChart({ metric, size = 'small', className }: Props) {
   const large = size === 'large'
-  const width = large ? 720 : 320
-  const height = large ? 300 : 96
-  const margin = large ? { top: 24, right: 16, bottom: 32, left: 48 } : { top: 10, right: 6, bottom: 10, left: 6 }
-
   const id = useId()
   const ref = useRef<SVGSVGElement>(null)
+  const frame = useRef<HTMLElement>(null)
   const visible = useInView(ref)
+  // The large chart is drawn at its real width, so its labels stay readable
+  // on a phone; the small one simply scales.
+  const measured = useWidth(frame, 320, large)
+  const width = large ? measured : 320
+  const height = large ? (width < 500 ? 240 : 300) : 96
+  const margin = large ? { top: 24, right: 12, bottom: 32, left: 40 } : { top: 10, right: 6, bottom: 10, left: 6 }
   const [hover, setHover] = useState<number | null>(null)
 
   const { x, y, linePath, areaPath, yTicks, xTicks } = useMemo(() => {
@@ -61,7 +65,7 @@ export function MetricChart({ metric, size = 'small', className }: Props) {
       .y0(y.range()[0])
       .y1((i) => y(metric.values[i]))
       .curve(curveMonotoneX)(indexes)
-    const xTicks = indexes.filter((i) => i % 3 === 0)
+    const xTicks = indexes.filter((i) => i % (width < 500 ? 4 : 3) === 0)
     return { x, y, linePath, areaPath, yTicks: y.ticks(4), xTicks }
   }, [metric, width, height, margin.left, margin.right, margin.top, margin.bottom])
 
@@ -78,11 +82,13 @@ export function MetricChart({ metric, size = 'small', className }: Props) {
   }
 
   return (
-    <figure className={cn('relative', className)} data-visible={visible}>
+    <figure ref={frame} className={cn('relative min-w-0', className)} data-visible={visible}>
       <svg
         ref={ref}
         viewBox={`0 0 ${width} ${height}`}
-        className="h-auto w-full overflow-visible"
+        width={large ? width : undefined}
+        height={large ? height : undefined}
+        className={cn('overflow-visible', large ? 'block max-w-full' : 'h-auto w-full')}
         role="img"
         aria-labelledby={`${id}-desc`}
         onPointerMove={large ? onPointerMove : undefined}
