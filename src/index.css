@@ -1,0 +1,127 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/geist';
+@import '@fontsource/instrument-serif/400.css';
+@import '@fontsource/instrument-serif/400-italic.css';
+
+/* Brand colours. The shadcn/ui components read the semantic names below
+   (background, primary, muted …); change a colour here and every
+   component follows. */
+:root {
+  --paper: #f4f1ea;
+  --ink: #121417;
+  --cobalt: #2747f5;
+  --peach: #ffb38a;
+  --stone: #d9d3c7;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: #fbfaf6;
+  --card-foreground: var(--ink);
+  --primary: var(--cobalt);
+  --primary-foreground: #ffffff;
+  --secondary: #e9e4d8;
+  --secondary-foreground: var(--ink);
+  --muted: #e9e4d8;
+  --muted-foreground: #565a60;
+  --accent: var(--peach);
+  --border: var(--stone);
+  --ring: var(--cobalt);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-cobalt: var(--cobalt);
+  --color-peach: var(--peach);
+  --color-stone: var(--stone);
+
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', ui-serif, Georgia, serif;
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-in-fade: fade-in 0.15s ease-out;
+  --animate-in-zoom: zoom-in 0.2s ease-out;
+}
+
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+@keyframes zoom-in {
+  from { opacity: 0; transform: translate(-50%, -48%) scale(0.97); }
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--peach);
+  }
+}
+
+/* A chart line draws itself once its card scrolls into view. */
+.chart-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+[data-visible='true'] .chart-line {
+  stroke-dashoffset: 0;
+}
+
+/* The approach timeline: filled by how far the section has scrolled
+   (--progress from useScrollProgress), down on phones, across on wider
+   screens. */
+.timeline-fill {
+  --fill: clamp(0, (var(--progress, 1) - 0.25) * 2.6, 1);
+  transform: scaleY(var(--fill));
+  transform-origin: top;
+}
+@media (min-width: 48rem) {
+  .timeline-fill {
+    transform: scaleX(var(--fill));
+    transform-origin: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .chart-line {
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+}

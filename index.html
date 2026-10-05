@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tidsrum — service design studio in Copenhagen</title>
+    <meta name="description" content="Tidsrum is a service design studio in Copenhagen. We help transport companies, cities and retailers take the queues, forms and phone calls out of everyday services, and we measure what changed." />
+    <meta name="theme-color" content="#F4F1EA" />
+    <!-- The fonts the first screen needs, so they load with the page
+         instead of after the JavaScript. -->
+    <link rel="preload" href="/node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href="https://tidsrum.example/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Tidsrum" />
+    <meta property="og:title" content="Tidsrum — we make services people don't have to think about" />
+    <meta property="og:description" content="A service design studio in Copenhagen. Six cases, all measured." />
+    <meta property="og:url" content="https://tidsrum.example/" />
+    <meta property="og:image" content="https://tidsrum.example/og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Tidsrum",
+        "description": "Service design and transformation studio",
+        "url": "https://tidsrum.example/",
+        "email": "hello@tidsrum.example",
+        "foundingDate": "2017",
+        "numberOfEmployees": { "@type": "QuantitativeValue", "value": 11 },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Ved Kanalen 14",
+          "postalCode": "1420",
+          "addressLocality": "København K",
+          "addressCountry": "DK"
+        },
+        "areaServed": ["Denmark", "Sweden", "Norway"],
+        "knowsAbout": ["Service design", "User research", "Digital products", "Public services"]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
