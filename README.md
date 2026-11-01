@@ -62,6 +62,14 @@ The site is a single page, so it needs no server rules. If you add pages
 with `react-router-dom`, set up your host to answer every path with
 `index.html` (on Netlify a `_redirects` file with `/* /index.html 200`).
 
+## Using this for a real site
+
+The images look real but were generated with AI, and the
+notice in the footer is what labels them. If you publish a real site with
+them and remove that notice, you may have to label them yourself, for
+example under Article 50 of the EU AI Act. Replacing them with your own
+avoids the question.
+
 ## Licence
 
 MIT, see [LICENSE](LICENSE). Images: see [IMAGES.md](IMAGES.md).
